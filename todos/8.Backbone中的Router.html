@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>路由</title>
+</head>
+<body>
+<!--在现在的单页应用中，所有的操作、内容都在一个页面上呈现，这意味着浏览器的url始终要定位到当前页面。-->
+<!--那么一个页面中的所有的操作总不能都通过事件监听来完成，尤其是对于需要切换页面的场景以及需要分享、收藏固定链接的情况。-->
+<!--因此就有了router，通过hash的方式（即#page）来完成。不过随着浏览器发展，大多数的浏览器已经可以通过history api来操控url的改变，-->
+<!--可以直接使用 /page 来完成之前需要hash来完成的操作，这种方式看起来更为直观一些。-->
+<!--路由-->
+<div>
+    <a href="">首页</a>
+    <a href="#search">查询列表</a>
+    <a href="#search/abc">关键字查询</a>
+    <a href="#search/abc/p2">页码关键字查询</a>
+    <a href="#error">其他页</a>
+    <a href="#action">action页</a>
+</div>
+<div id="divShow"></div>
+<a href="#/manual">manual</a>
+<script src="lib/jquery-1.12.4.js"></script>
+<script src="lib/underscore.js"></script>
+<script src="lib/backbone.js"></script>
+<script type="text/javascript">
+    var $divShow = $("#divShow");
+    var testrouter = Backbone.Router.extend({
+        routes: {
+            "": "main",
+            "search": "search_list",
+            "search/:key": "search_key",
+            "search/:key/p:page": "search_key_page",
+            "*action": "search_default",
+        },
+        main:function () {
+            $divShow.html("首页");
+        },
+        search_list:function () {
+            $divShow.html("查询列表");
+        }
+    })
+    var router = new testrouter();
+    /*router.on("route:main", function () {
+        $divShow.html("首页");
+    })
+    router.on("route:search_list", function () {
+        $divShow.html("查询列表");
+    })*/
+    router.on("route:search_key", function (key) {
+        $divShow.html("查询关键字为：" + key + "记录");
+    })
+    router.on("route:search_key_page", function (key, page) {
+        $divShow.html("查询关键字为：" + key + "记录，页码为" + page);
+    })
+    router.on("route:search_default", function () {
+        $divShow.html("其他页");
+    })
+
+    /*需要通过调用Backbone.history.start()方法来初始化这个Router*/
+    Backbone.history.start();//backbone通过hash值找到对应的回调函数
+
+
+//    这个routes映射要怎么传参数?
+//        <a href="">首页</a>
+//        <a href="#search">查询列表</a>
+//        <a href="#search/abc">关键字查询</a>
+//        <a href="#search/abc/p2">页码关键字查询</a>
+//        <a href="#error">其他页</a>
+
+
+//var Man =Backbone.Router.extend({
+//    routes: {
+//        "posts/:id" : "getPost",
+//        "manual": "manual",
+//        "*actions": "defaultRoute",
+//    },
+//    // 省略部分代码
+//    loadView: function( route, action ){
+//        alert(route + "_" + action); // dashboard_graph
+//    },
+//    manual: function() {
+//        alert("call manual");
+//        man.navigate("/posts/" + 404, {trigger: true, replace: false});
+////        这里需要解释的是navigate后面的两个参数。trigger表示触发事件，如果为false，则只是url变化，并不会触发事件
+////        ，replace表示url替换，而不是前进到这个url，意味着启用该参数，浏览器的history不会记录这个变动。
+//    },
+//    getPost:function () {
+//        alert("w我被触发了！")
+//    }
+//})
+//    var man=new Man();
+//    Backbone.history.start();
+
+</script>
+</body>
+</html>

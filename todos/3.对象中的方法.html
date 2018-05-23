@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对象中的方法</title>
+</head>
+<body>
+<script src="lib/jquery-1.12.4.js"></script>
+<script src="lib/underscore.js"></script>
+<script src="lib/backbone.js"></script>
+<script type="text/javascript">
+   var Man = Backbone.Model.extend({
+       initialize:function () {
+
+       },
+       defaults:{
+           name:"李四",
+           age:"38"
+       },
+       aboutMe:function () {
+           return "我叫"+this.get("name")+"今年"+this.get("age")+"岁";
+       }
+   })
+    var man = new Man();
+   //alert(man.aboutMe());
+</script>
+</body>
+</html>

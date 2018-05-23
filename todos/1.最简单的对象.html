@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>最简单的对象</title>
+</head>
+<body>
+<script src="lib/jquery-1.12.4.js"></script>
+<script src="lib/underscore.js"></script>
+<script src="lib/backbone.js"></script>
+<script type="text/javascript">
+    var Man = Backbone.Model.extend({
+        initialize:function () {
+            alert("Hello ,Backbone!!! 棒棒的！！！")
+        }
+    })
+    var man = new Man();
+</script>
+</body>
+</html>

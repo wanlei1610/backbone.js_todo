@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>view中的模板</title>
+    <style>
+        li{
+            margin-top:10px;
+            background:yellowgreen;
+            font-size:30px;
+        }
+        li:hover{
+            background:red;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<script type="text/template" id="template">
+    <ul>
+        <%_.each(labels,function(name){ %>
+            <%if(name !="李四"){%>
+                <li><%= name %></li>
+            <%}%>
+        <%})%>
+    </ul>
+</script>
+<script src="lib/jquery-1.12.4.js"></script>
+<script src="lib/underscore.js"></script>
+<script src="lib/backbone.js"></script>
+<script type="text/javascript">
+    var Views = Backbone.View.extend({
+        initialize: function () {
+            var labels =['张三',"李四","王五","赵六"];
+            this.render({labels:labels});
+        },
+        render: function (context) {
+            var template = _.template($("#template").html());
+            $(this.el).html(template(context));
+        },
+    });
+    var View = new Views({el: $("#container")});
+    //这里面需要注意的是在模板中定义的所有变量必须在render的时候传递参数过去，不然就会报错。
+    // 关于el还有一个东西叫做$el,这个东西是对view中元素的缓存。
+</script>
+</body>
+</html>

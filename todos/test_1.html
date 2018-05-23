@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>attributes</title>
+</head>
+<body>
+<script src="lib/jquery-1.12.4.js"></script>
+<script src="lib/underscore.js"></script>
+<script src="lib/backbone.js"></script>
+<!--<script type="text/javascript">-->
+    <!--var student = Backbone.Model.extend({-->
+        <!--initailize:function () {-->
+            <!--// 构造函数-->
+        <!--},-->
+        <!--defaults:{-->
+            <!--Code:"10001",-->
+            <!--Name:"张三",-->
+            <!--Score:100-->
+        <!--}-->
+    <!--});-->
+    <!--var stuE=new student();-->
+    <!--stuE.set({-->
+        <!--Code:"10106",-->
+        <!--Name:"李小明",-->
+        <!--Score:650-->
+    <!--});-->
+    <!--console.log(stuE.attributes);-->
+    <!--var attrs = stuE.attributes;-->
+    <!--for(var i in attrs){-->
+        <!--console.log(i + ":" + stuE.attributes[i]);-->
+    <!--}-->
+
+<!--</script>-->
+<!--<script type="text/javascript">-->
+    <!--//自定义事件-->
+    <!--var Mod = Backbone.Model.extend({-->
+        <!--defaults : {-->
+            <!--name : 'trigkit4',-->
+            <!--age : 21-->
+    <!--},-->
+    <!--initialize : function(){  //初始化构造函数-->
+        <!--this.on('change:age',function(){    //绑定change事件，当数据改变时执行此回调函数-->
+            <!--alert(123);-->
+        <!--});-->
+    <!--}-->
+    <!--});-->
+
+    <!--var model = new Mod;-->
+    <!--model.set('name' ,'backbone');//修改默认的name属性值为backbone，此时数据被改变，弹出123-->
+<!--//    model.set('age' ,'12');//修改默认的name属性值为backbone，此时数据被改变，弹出123-->
+    <!--console.log(model.get("name"));-->
+    <!--console.log(model.get("age"));-->
+<!--</script>-->
+
+<!--listenTo-->
+<!--<script type="text/javascript">-->
+    <!--$(function(){-->
+        <!--var Mod = Backbone.Model.extend({-->
+            <!--defaults : {-->
+                <!--name : 'trigkit4'-->
+            <!--}-->
+        <!--});-->
+        <!--var V = Backbone.View.extend({-->
+            <!--initialize : function(){-->
+                <!--this.listenTo(this.model,'change',this.show);//listenTo比on多了个参数-->
+            <!--},-->
+            <!--show : function(model){-->
+                <!--$('body').append('<div>' + model.get('name') + '</div>');-->
+            <!--}-->
+        <!--});-->
+
+        <!--var m = new Mod;-->
+        <!--var v = new V({model:m});//model指定创建的模型对象m,即前面的路由，哈希值的对应-->
+        <!--m.set('name','hello Backbone');//对模型进行就改时，触发事件，页面也就更新了-->
+    <!--});-->
+<!--</script>-->
+
+<!--路由-->
+<!--<div>-->
+    <!--<a href="">首页</a>-->
+    <!--<a href="#search">查询列表</a>-->
+    <!--<a href="#search/abc">关键字查询</a>-->
+    <!--<a href="#search/abc/p2">页码关键字查询</a>-->
+    <!--<a href="#error">其他页</a>-->
+<!--</div>-->
+<!--<div id="divShow"></div>-->
+<!--<script type="text/javascript">-->
+    <!--var $divShow=$("#divShow");-->
+    <!--var testrouter= Backbone.Router.extend({-->
+        <!--routes:{-->
+            <!--"":"main",-->
+            <!--"search":"search_list",-->
+            <!--"search/:key":"search_key",-->
+            <!--"search/:key/p:page":"search_key_page",-->
+            <!--"*search":"search_default",-->
+        <!--}-->
+    <!--})-->
+    <!--var router =new testrouter();-->
+    <!--router.on("route:main",function () {-->
+        <!--$divShow.html("首页");-->
+    <!--})-->
+    <!--router.on("route:search_list",function(){-->
+        <!--$divShow.html("查询列表");-->
+    <!--})-->
+    <!--router.on("route:search_key",function (key) {-->
+        <!--$divShow.html("查询关键字为："+key+"记录");-->
+    <!--})-->
+    <!--router.on("route:search_key_page",function (key,page) {-->
+        <!--$divShow.html("查询关键字为："+key+"记录，页码为"+page);-->
+    <!--})-->
+    <!--router.on("route:search_default",function () {-->
+        <!--$divShow.html("其他页");-->
+    <!--})-->
+    <!--Backbone.history.start();//backbone通过hash值找到对应的回调函数-->
+<!--</script>-->
+
+<div class="j_seconds">3倒计时</div>
+<input type="checkbox">
+<script type="text/javascript">
+    function autoClose(restSecond, element,flag) {
+        var secTimer = setInterval(decreaseSecond, 1000);
+        function decreaseSecond() {
+            restSecond--;
+            if (restSecond <= 0) {
+                clearInterval(secTimer);
+                element.hide();
+                if(flag){
+                    alert(0);
+//                    startTimer();//上次要点小测结果弹窗关闭，开始倒计时
+                }
+            }
+        }
+    }
+    var flag=false;
+//    autoClose(3,$(".j_seconds"));
+    //autoClose(3,$(".j_seconds"),true);
+    $("input").checked=true;
+</script>
+</body>
+</body>
+</html>

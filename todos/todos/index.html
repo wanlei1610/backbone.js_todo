@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone.js Todos</title>
+    <link rel="stylesheet" href="todos.css"/>
+</head>
+<body>
+
+<div id="todoApp">
+    <header>
+        <h1>Todos</h1>
+        <input id="newTodo" type="text" placeholder="添加待办事项?">
+    </header>
+    <section id="main">
+        <input id="toggleAll" type="checkbox">
+        <label for="toggleAll">全部标记为已完成</label>
+        <ul id="todoList"></ul>
+    </section>
+    <footer>
+        <a id="clearList">清除</a>
+        <div id="todoCount"></div>
+    </footer>
+</div>
+
+<script src="../lib/jquery-1.12.4.js"></script>
+<script src="../lib/underscore.js"></script>
+<script src="../lib/backbone.js"></script>
+<script src="../lib/backbone.localStorage.js"></script>
+<script src="todos.js"></script>
+
+<!-- Templates -->
+
+<script type="text/template" id="item_template">
+    <div class="view">
+        <input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+        <label><%= content %></label>
+        <a class="destroy"></a>
+    </div>
+    <input class="edit" type="text" value="<%= content %>" />
+</script>
+
+<script type="text/template" id="stats_template">
+    <% if (done) { %>
+    <a id="clearCompleted">清除 <%= done %> 项 </a>
+    <% } %>
+    <div class="todo_count">未完成<b><%= remaining %></b>项</div>
+</script>
+
+</body>
+</html>

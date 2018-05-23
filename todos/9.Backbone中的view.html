@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>view展示</title>
+    <style>
+        .play{
+            margin-top:50px;
+            width: 100px;
+            height: 30px;
+            border:1px solid #ff4c4c;
+            background:yellowgreen;
+            color:#000;
+        }
+    </style>
+</head>
+<body>
+<div id="search_container"></div>
+<div class="play">你来打我啊！</div>
+<script type="text/template" id="search_template">
+    <label><%= search_label%></label>
+    <input type="text" id="search_input">
+    <input type="button" id="search_button" value="search">
+</script>
+<script src="lib/jquery-1.12.4.js"></script>
+<script src="lib/underscore.js"></script>
+<script src="lib/backbone.js"></script>
+<script type="text/javascript">
+    var SearchView= Backbone.View.extend({
+        initialize:function () {
+            //alert("这是一个View 展示");
+        },
+        render:function (context) {
+            var template =_.template($("#search_template").html());
+            console.log(this.el);
+            $(this.el).html(template(context));
+        },
+        events:{
+            //定义类型为button的input标签的点击事件，触发函数doSearch
+            "click input[type=button]":'doSearch'
+        },
+        doSearch:function (event) {
+            alert("Search for "+$("#search_input").val());
+        }
+    });
+    var searchView= new SearchView({el:$("#search_container")});
+    searchView.render({search_label:"搜索渲染"})
+    //这里面需要注意的是在模板中定义的所有变量必须在render的时候传递参数过去，不然就会报错。
+    // 关于el还有一个东西叫做$el,这个东西是对view中元素的缓存。
+</script>
+</body>
+</html>

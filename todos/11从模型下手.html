@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>从模型下手</title>
+</head>
+<body>
+<!--从这个界面我们可以总结出来,下面这些功能:-->
+<!--* 任务管理-->
+<!--添加任务-->
+<!--修改任务-->
+<!--删除任务-->
+<!--* 统计-->
+<!--任务总计-->
+<!--已完成数目-->
+<script src="lib/jquery-1.12.4.js"></script>
+<script src="lib/underscore.js"></script>
+<script src="lib/backbone.js"></script>
+<script type="text/javascript">
+    var Views = Backbone.View.extend({
+        initialize: function () {
+            var labels =['张三',"李四","王五","赵六"];
+            this.render({labels:labels});
+        },
+        render: function (context) {
+            var template = _.template($("#template").html());
+            $(this.el).html(template(context));
+        },
+    });
+    var View = new Views({el: $("#container")});
+    //这里面需要注意的是在模板中定义的所有变量必须在render的时候传递参数过去，不然就会报错。
+    // 关于el还有一个东西叫做$el,这个东西是对view中元素的缓存。
+</script>
+</body>
+</html>

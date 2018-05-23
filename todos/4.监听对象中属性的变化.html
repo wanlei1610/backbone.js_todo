@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>监听对象中属性的变化</title>
+</head>
+<body>
+<script src="lib/jquery-1.12.4.js"></script>
+<script src="lib/underscore.js"></script>
+<script src="lib/backbone.js"></script>
+<script type="text/javascript">
+   var Man = Backbone.Model.extend({
+       initialize:function () {
+           this.on("change:age",function () {
+               var age = this.get("age");
+               alert("你改变后的值为"+age);
+           })
+       },
+       defaults:{
+           name:"李四",
+           age:"38"
+       },
+       aboutMe:function () {
+           return "我叫"+this.get("name")+"今年"+this.get("age")+"岁";
+       }
+   })
+    var man = new Man();
+   alert(man.aboutMe());
+       /* 修改默认值*/
+  // man.set({age:"18"});
+    man.set({age:"100岁"})
+
+</script>
+</body>
+</html>
